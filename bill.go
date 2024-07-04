@@ -1,4 +1,4 @@
-package utils
+package main
 
 import (
 	"fmt"
@@ -12,7 +12,7 @@ type Bill struct {
 	tip   float64
 }
 
-func CreateBill(name string) Bill {
+func createBill(name string) Bill {
 	newBill := Bill{
 		name:  name,
 		items: map[string]float64{},
@@ -40,11 +40,11 @@ func (bill Bill) format() string {
 	return formattedText
 }
 
-func (bill *Bill) UpdateTip(tip float64) {
+func (bill *Bill) updateTip(tip float64) {
 	bill.tip = tip
 }
 
-func (bill Bill) AddItem(name string, price float64) {
+func (bill Bill) addItem(name string, price float64) {
 	bill.items[name] = price
 }
 
@@ -61,7 +61,7 @@ func exportBill(bill Bill) {
 	fmt.Println("Your bill was saved to a file!")
 }
 
-func (bill Bill) SaveBill() {
+func (bill Bill) saveBill() {
 	path := "bills/" + bill.name + ".txt"
 
 	// Create a folder when it doesn't exist.

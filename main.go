@@ -3,7 +3,6 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"go-bill-export/utils"
 	"os"
 	"strconv"
 	"strings"
@@ -17,7 +16,7 @@ func getInput(reader *bufio.Reader, promt string) (string, error) {
 	return name, error
 }
 
-func promtOptions(bill utils.Bill) {
+func promtOptions(bill Bill) {
 	fmt.Println("\n- - - - - - - Options - - - - - - -")
 	fmt.Println("a - Add items")
 	fmt.Println("t - Add tip")
@@ -38,7 +37,7 @@ func promtOptions(bill utils.Bill) {
 			promtOptions(bill)
 		}
 
-		bill.AddItem(name, parsedPrice)
+		bill.addItem(name, parsedPrice)
 		fmt.Println("The item was added successfully!")
 		promtOptions(bill)
 	case "t":
@@ -50,22 +49,22 @@ func promtOptions(bill utils.Bill) {
 			promtOptions(bill)
 		}
 
-		bill.UpdateTip(parsedTip)
+		bill.updateTip(parsedTip)
 		fmt.Println("The tip was updated successfully!")
 		promtOptions(bill)
 	case "s":
-		bill.SaveBill()
+		bill.saveBill()
 	default:
 		fmt.Println("Your option is not valid! Choose again")
 		promtOptions(bill)
 	}
 }
 
-func createBillFromUser() utils.Bill {
+func createBillFromUser() Bill {
 	reader := bufio.NewReader(os.Stdin)
 	name, _ := getInput(reader, "Please enter your bill name: ")
 
-	newBill := utils.CreateBill(name)
+	newBill := createBill(name)
 	fmt.Println("The bill was created - ", name)
 
 	return newBill
